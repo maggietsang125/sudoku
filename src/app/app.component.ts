@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
         backgroundColor: '#3498db'
       })),
       state('closed', style({
-        display: 'none',
+        visibility: 'hidden',
       })),
       transition('open => closed', [
         animate('1s')

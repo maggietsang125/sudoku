@@ -3,6 +3,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0px;
+  font-family: "system";
 }
 
 @font-face {
@@ -12,8 +13,4 @@ body {
   src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"),
     local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"),
     local("Roboto-Light"), local("DroidSans"), local("Tahoma");
-}
-
-body {
-  font-family: "system";
 }

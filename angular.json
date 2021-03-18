@@ -126,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "sudokuAng"
+    }
+  },
+  "defaultProject": "sudokuAng",
+  "cli": {
+    "analytics": "80e79fe6-9f9a-48fc-b808-19d282801f4e"
+  }
 }

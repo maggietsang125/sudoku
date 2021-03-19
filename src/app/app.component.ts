@@ -6,7 +6,7 @@ import { Cell, Row, Grid, CurrentCell } from './sudoku-util';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss', '../mobile.scss'],
   animations: [
     trigger('loadingPage', [
       state('open', style({
@@ -17,8 +17,8 @@ import { Cell, Row, Grid, CurrentCell } from './sudoku-util';
       state('closed', style({
         height: '10%',
         'font-size': '200%',
+        'border-bottom': '0px solid #dddddd',
         // display: 'none',
-        // visibility: 'hidden',
       })),
       transition('open => closed', [
         animate('1s')
@@ -102,21 +102,23 @@ export class AppComponent implements OnInit {
     return newGrid;
   }
 
-  clickCell(cell: Cell) {
+  clickCell(cell: Cell): {} {
     console.log(cell.id);
     this.currentCell = {
       row: Number(cell.id[0]),
       col: Number(cell.id[1]),
       id: cell.id,
     };
+    return this.currentCell;
 
     // const row = Number(cell.id[0]);
     // const col = Number(cell.id[1]);
     // this.currentGrid?.grid[row].row[col].isActive = !this.currentGrid?.grid[row].row[col].isActive;
   }
 
-  clickControl(thing: number) {
+  clickControl(thing: number): number {
     this.currentControl = thing;
+    return this.currentControl;
   }
 
   updateCurrentGrid(grid: Grid): Grid {
@@ -124,12 +126,12 @@ export class AppComponent implements OnInit {
     return this.currentGrid;
   }
 
-  updateCurrentCell(cellId: string, value: number) {
-    const row = Number(cellId[0]);
-    const col = Number(cellId[1]);
+  // updateCurrentCell(cellId: string, value: number) {
+  //   const row = Number(cellId[0]);
+  //   const col = Number(cellId[1]);
 
-    // this.currentGrid?.grid[row].row[col].value = value;
-  }
+  //   // this.currentGrid?.grid[row].row[col].value = value;
+  // }
 
 
 

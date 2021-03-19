@@ -1,0 +1,46 @@
+
+:root {
+  --font-size-sudoku: #{200%};
+  --cell-min-size: #{calc(100% / 9)};
+  --cell-active-size: #{calc(100% * 0.4 / 9)};
+  --cell-padding: 12px;
+  --cell-bkgc: rgba(242, 255, 0, 0.494);
+}
+
+.divider {
+  border-bottom: 1px solid lightgray;
+  margin: 20px;
+}
+
+.no-selection {
+  user-select: none;
+  font-weight: 600;
+
+  &:hover {
+    background-color: rgba(147, 191, 238, 0.589);
+  }
+}
+
+
+.width-50 {
+  width: fit-content;
+  margin: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="width-"] {
+    width: 95%;
+  }
+
+  // [class*="sudoku-container"] {
+  //   background-color: lightcoral;
+  //   font-size: 50%;
+  //   min-width: 10px;
+  //   min-height: 10px;
+  //   padding: 0px;
+  // }
+  [class*="sudoku"] {
+    background-color: lightcoral;
+  }
+}

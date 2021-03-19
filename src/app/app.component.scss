@@ -1,3 +1,9 @@
+$font-size-sudoku: var(--font-size-sudoku);
+$cell-min-size: var(--cell-min-size);
+$cell-active-size: var(--cell-active-size);
+$cell-padding: var(--cell-padding);
+$cell-bkgc: var(--cell-bkgc);
+
 .loading {
   width: 100%;
   height: 100%;
@@ -11,14 +17,6 @@
 
   opacity: 1;
   transition: opacity 2s ease;
-}
-.no-selection {
-  user-select: none;
-  font-weight: 600;
-
-  &:hover {
-    background-color: rgba(147, 191, 238, 0.589);
-  }
 }
 
 .open-close-container {
@@ -66,7 +64,7 @@
     margin: auto;
 
     .number {
-      padding: 12px;
+      padding: var(--cell-padding);
       min-width: 43px;
       width: fit-content;
 
@@ -83,14 +81,11 @@
   }
 
   .sudoku-container {
-    margin: auto;
-    width: fit-content;
     border: 1.5px solid rgb(63, 62, 62);
 
     .row {
       width: 100%;
       display: flex;
-      flex-wrap: wrap;
       flex-direction: row;
 
       &:nth-child(3n) {
@@ -102,31 +97,38 @@
         background-color: rgb(230, 242, 254);
       }
 
-      .cell {
-        div {
-          padding: 12px;
-          min-width: 43px;
-          min-height: 43px;
-          width: fit-content;
+      .col {
+        min-width: var(--cell-min-size);
+        min-height: var(--cell-min-size);
+        position: relative;
+
+        .cell {
+          padding: var(--cell-padding);
+          min-width: var(--cell-min-size);
+          min-height: var(--cell-min-size);
+          max-width: var(--cell-min-size);
+          max-height: var(--cell-min-size);
+
+          // width: fit-content;
           text-align: center;
-          font-size: 200%;
+          font-size: var(--font-size-sudoku);
 
           &:hover {
             background-color: rgba(147, 191, 238, 0.438);
           }
-        }
-        &:nth-child(3n) {
-          border-right: 1px solid rgb(87, 86, 86);
+          &:nth-child(3n) {
+            border-right: 1px solid rgb(87, 86, 86);
+          }
         }
       }
     }
   }
 
   .Active {
-    padding: 12px;
-    min-width: 43px;
-    min-height: 43px;
+    padding: var(--cell-padding);
+    width: var(--cell-active-size);
+    height: var(--cell-active-size);
     position: absolute;
-    background-color: rgba(147, 191, 238, 0.438);
+    background-color: $cell-bkgc;
   }
 }

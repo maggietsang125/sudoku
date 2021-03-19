@@ -7,28 +7,31 @@
   <div>Sudoku</div>
 </div>
 
-<div *ngIf="!isOpen" class="console">
+<div class="divider"></div>
+
+<div *ngIf="!isOpen" class="console" style="display: none;">
   <h3>Console</h3>
   <span>Control: {{ currentControl }} </span>
   <span>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </span>
 </div>
 
 <div *ngIf="!isOpen" class="sudoku">
-  <div class="sudoku-container">
+  <div class="sudoku-container width-50">
     <div *ngFor="let row of currentGrid?.grid" class="row">
       <div
         *ngFor="let col of row.row"
-        class="cell"
         (click)="clickCell(col)"
-        [class.no-selection]="!col.isSelect"
+        class="col"
       >
         <ng-container *ngIf="col.id === currentCell.id">
           <div class="Active"></div>
         </ng-container>
-        <div>{{ col.value }}</div>
+        <div class="cell">{{ col.value }}</div>
       </div>
     </div>
   </div>
+
+  <div class="divider"></div>
 
   <div class="number-grid">
     <div *ngFor="let number of ControlNumber" class="number">

@@ -12,6 +12,14 @@
   opacity: 1;
   transition: opacity 2s ease;
 }
+.no-selection {
+  user-select: none;
+  font-weight: 600;
+
+  &:hover {
+    background-color: rgba(147, 191, 238, 0.589);
+  }
+}
 
 .open-close-container {
   border: 1px solid #dddddd;
@@ -23,4 +31,102 @@
   justify-content: center;
   align-items: center;
   font-size: 400%;
+}
+
+.console {
+  width: 25%;
+  height: 100%;
+  background-color: #f2f1efc7;
+  position: absolute;
+  padding: 12px;
+  left: 0;
+
+  h3,
+  span {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  span {
+    font-size: 100%;
+    display: block;
+  }
+}
+
+.sudoku {
+  h3 {
+    text-align: center;
+  }
+
+  .number-grid {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: auto;
+
+    .number {
+      padding: 12px;
+      min-width: 43px;
+      width: fit-content;
+
+      text-align: center;
+      color: #1f3a93;
+      font-weight: bold;
+      background-color: #e4f1fe;
+      border: 1px solid lightgray;
+      border-radius: 4px;
+    }
+    .number:hover {
+      background-color: rgba(147, 191, 238, 0.438);
+    }
+  }
+
+  .sudoku-container {
+    margin: auto;
+    width: fit-content;
+    border: 1.5px solid rgb(63, 62, 62);
+
+    .row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+
+      &:nth-child(3n) {
+        border-bottom: 1px solid rgb(87, 86, 86);
+      }
+
+      &:hover,
+      .cell:hover {
+        background-color: rgb(230, 242, 254);
+      }
+
+      .cell {
+        div {
+          padding: 12px;
+          min-width: 43px;
+          min-height: 43px;
+          width: fit-content;
+          text-align: center;
+          font-size: 200%;
+
+          &:hover {
+            background-color: rgba(147, 191, 238, 0.438);
+          }
+        }
+        &:nth-child(3n) {
+          border-right: 1px solid rgb(87, 86, 86);
+        }
+      }
+    }
+  }
+
+  .Active {
+    padding: 12px;
+    min-width: 43px;
+    min-height: 43px;
+    position: absolute;
+    background-color: rgba(147, 191, 238, 0.438);
+  }
 }

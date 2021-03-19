@@ -1,4 +1,41 @@
-<div [@loadingPage]="isOpen ? 'open' : 'closed'" class="open-close-container" (click)="toggle()">
+<div
+  [@loadingPage]="isOpen ? 'open' : 'closed'"
+  class="open-close-container"
+  (click)="toggle()"
+>
   <!-- <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p> -->
   <div>Sudoku</div>
+</div>
+
+<div *ngIf="!isOpen" class="console">
+  <h3>Console</h3>
+  <span>Control: {{ currentControl }} </span>
+  <span>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </span>
+</div>
+
+<div *ngIf="!isOpen" class="sudoku">
+  <div class="sudoku-container">
+    <div *ngFor="let row of currentGrid?.grid" class="row">
+      <div
+        *ngFor="let col of row.row"
+        class="cell"
+        (click)="clickCell(col)"
+        [class.no-selection]="!col.isSelect"
+      >
+        <ng-container *ngIf="col.id === currentCell.id">
+          <div class="Active"></div>
+        </ng-container>
+        <div>{{ col.value }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="number-grid">
+    <div *ngFor="let number of ControlNumber" class="number">
+      <ng-container *ngIf="number === currentControl">
+        <div class="Active"></div>
+      </ng-container>
+      {{ number }}
+    </div>
+  </div>
 </div>

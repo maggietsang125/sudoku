@@ -34,11 +34,8 @@
   <div class="divider"></div>
 
   <div class="number-grid">
-    <div *ngFor="let number of ControlNumber" class="number">
-      <ng-container *ngIf="number === currentControl">
-        <div class="Active"></div>
-      </ng-container>
+    <button *ngFor="let number of ControlNumber" class="number" (click)="clickControl(number)">
       {{ number }}
-    </div>
+    </button>
   </div>
 </div>

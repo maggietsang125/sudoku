@@ -110,6 +110,11 @@ export class AppComponent implements OnInit {
     return newGrid;
   }
 
+  resetGrid() {
+    this.currentGrid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
+    this.exitControlNumber();
+  }
+
   updateCurrentGrid(grid: Grid): Grid {
     this.currentGrid = grid;
     return this.currentGrid;
@@ -143,10 +148,10 @@ export class AppComponent implements OnInit {
     return this.currentControl;
   }
 
-  // exitControlNumber() {
-  //   this.currentControl = -1;
-  //   return this.currentControl;
-  // }
+  exitControlNumber() {
+    this.currentControl = -1;
+    return this.currentControl;
+  }
 
   @HostListener('document:keydown', ['$event'])
   ControlNumberKeydown(event: KeyboardEvent): void {

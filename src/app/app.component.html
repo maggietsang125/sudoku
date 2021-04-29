@@ -42,13 +42,15 @@
 
   <div class="number-grid">
     <div *ngFor="let number of ControlNumber" (click)="updateControlNumber(number)">
-
       <ng-container *ngIf="number === currentControl">
         <div class="number highlight"></div>
       </ng-container>
-
       <div class="number"> {{ number }} </div>
-
     </div>
+    <br>
+    <div class="reset" (click)="resetGrid()">
+      <div> reset grid </div>
+    </div>
+
   </div>
 </div>

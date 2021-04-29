@@ -89,6 +89,12 @@ $cell-bkgc: var(--cell-bkgc);
     }
   }
 
+  .reset {
+    padding: 20px;
+    background-color: rgb(216, 140, 40);
+    cursor: pointer;
+  }
+
   .sudoku-container {
     border: 1.5px solid rgb(63, 62, 62);
 

@@ -102,11 +102,6 @@ $cell-bkgc: var(--cell-bkgc);
         border-bottom: 1px solid rgb(87, 86, 86);
       }
 
-      &:hover,
-      .cell:hover {
-        // background-color: rgb(230, 242, 254);
-      }
-
       .col {
         min-width: var(--cell-min-size);
         min-height: var(--cell-min-size);

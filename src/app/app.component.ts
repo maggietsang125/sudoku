@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Cell, Row, Grid, CurrentCell, ControlNumber } from './sudoku-util';
+import { Cell, Row, Grid } from './sudoku-util';
 
 @Component({
   selector: 'app-root',
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
     [91, 92, 93, 94, 95, 96, 97, 0, 99]
   ];
 
-  currentGrid: Grid | null = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
+  currentGrid: Grid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
   currentCell: Cell = {
     row: 9,
     col: 9,
@@ -125,23 +125,25 @@ export class AppComponent implements OnInit {
       isActive: true,
       isSelect: cell.isSelect,
     };
+    // this.editCell(cell);
     return this.currentCell;
   }
 
   updateControlNumber(control: number) {
-    if (this.currentControl === control) {
-      this.exitControlNumber();
-      return;
-    }
     this.currentControl = control;
+
+    if (this.currentCell.isSelect) {
+      this.editCell(this.currentCell);
+    }
+
     console.log(this.currentControl);
     return this.currentControl;
   }
 
-  exitControlNumber() {
-    this.currentControl = -1;
-    return this.currentControl;
-  }
+  // exitControlNumber() {
+  //   this.currentControl = -1;
+  //   return this.currentControl;
+  // }
 
   @HostListener('document:keydown', ['$event'])
   ControlNumberKeydown(event: KeyboardEvent): void {
@@ -151,39 +153,18 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // @HostListener('document:keydown', ['$event'])
-  // DirectionKeydown(event: KeyboardEvent): void {
-  //   // const newCellId = Math.max((Number(this.currentCell.id)-10), 0);
+  editCell(cell: Cell) {
+    if (!cell.isSelect) return;
+    if (this.currentControl === -1) return;
 
-  //   const newCellRow = Math.max(this.currentCell.row - 1, 0);
-  //   const newCell: Cell  = {
-  //     id: `${newCellRow}${this.currentCell.col}`,
-  //     value: this.currentCell.
-  //   };
+    if (this.currentGrid.grid[cell.row].row[cell.col].value === this.currentControl) {
+      this.currentGrid.grid[cell.row].row[cell.col].value = undefined;
+      return;
+    }
 
-
-  //   this.updateCurrentCell(null);
-
-  //   // if (event.key == 'ArrowUp') {
-  //   //   console.log('pressed up shift');
-  //   // }
-  //   // else {
-  //   //   console.log('just shift');
-  //   // }
-  //   // // console.log(event.key);
-  //   // // console.log(event.shiftKey);
-  //   // // console.log(event);
-  // }
-
-  // exitEditing() {
-  //   this.updateCurrentCell({
-  //     id: '99',
-  //     row: 9,
-  //     col: 9,
-  //     isActive: false,
-  //     isSelect: false,
-  //   });
-  // }
-
+    this.currentGrid.grid[cell.row].row[cell.col].value = this.currentControl;
+    console.log('cell edited');
+    return this.currentCell;
+  }
 
 }

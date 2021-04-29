@@ -38,6 +38,8 @@ $cell-bkgc: var(--cell-bkgc);
   position: absolute;
   padding: 12px;
   left: 0;
+  display: flex;
+  flex-direction: column;
 
   h3,
   span {
@@ -65,18 +67,25 @@ $cell-bkgc: var(--cell-bkgc);
 
     .number {
       padding: var(--cell-padding);
-      min-width: 43px;
-      width: fit-content;
+      min-width: 30px;
+      min-height: 30px;
 
       text-align: center;
       color: #1f3a93;
       font-weight: bold;
-      background-color: #e4f1fe;
       border: 1px solid lightgray;
       border-radius: 4px;
+
+      &:hover {
+        background-color: rgba(147, 191, 238, 0.438);
+      }
     }
-    .number:hover {
-      background-color: rgba(147, 191, 238, 0.438);
+
+    .highlight {
+      position: absolute;
+      min-width: 30px;
+      min-height: 30px;
+      background-color: rgba(131, 131, 211, 0.404);
     }
   }
 
@@ -87,6 +96,7 @@ $cell-bkgc: var(--cell-bkgc);
       width: 100%;
       display: flex;
       flex-direction: row;
+      background-color: transparent;
 
       &:nth-child(3n) {
         border-bottom: 1px solid rgb(87, 86, 86);
@@ -94,24 +104,30 @@ $cell-bkgc: var(--cell-bkgc);
 
       &:hover,
       .cell:hover {
-        background-color: rgb(230, 242, 254);
+        // background-color: rgb(230, 242, 254);
       }
 
       .col {
         min-width: var(--cell-min-size);
         min-height: var(--cell-min-size);
+        max-width: var(--cell-min-size);
+        max-height: var(--cell-min-size);
+        overflow: hidden;
         position: relative;
+        background-color: transparent;
 
         .cell {
           padding: var(--cell-padding);
-          min-width: var(--cell-min-size);
-          min-height: var(--cell-min-size);
-          max-width: var(--cell-min-size);
-          max-height: var(--cell-min-size);
+          // min-width: var(--cell-min-size);
+          // min-height: var(--cell-min-size);
+          // max-width: var(--cell-min-size);
+          // max-height: var(--cell-min-size);
+          width: (100% - var(--cell-padding));
+          height: (100% - var(--cell-padding));
 
-          // width: fit-content;
           text-align: center;
           font-size: var(--font-size-sudoku);
+          background-color: transparent;
 
           &:hover {
             background-color: rgba(147, 191, 238, 0.438);
@@ -128,7 +144,16 @@ $cell-bkgc: var(--cell-bkgc);
     padding: var(--cell-padding);
     width: var(--cell-active-size);
     height: var(--cell-active-size);
+
     position: absolute;
     background-color: $cell-bkgc;
+  }
+  .Active-Nearby {
+    padding: var(--cell-padding);
+    width: var(--cell-active-size);
+    height: var(--cell-active-size);
+
+    position: absolute;
+    background-color: rgba(129, 143, 219, 0.192);
   }
 }

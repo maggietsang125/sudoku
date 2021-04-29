@@ -1,5 +1,7 @@
 export interface Cell {
-  id: string;
+  id?: string;
+  row: number;
+  col: number;
   value?: number;
   comment?: number[];
   isActive: boolean;

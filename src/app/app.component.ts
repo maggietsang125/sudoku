@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Cell, Row, Grid, CurrentCell } from './sudoku-util';
+import { Cell, Row, Grid, CurrentCell, ControlNumber } from './sudoku-util';
 
 @Component({
   selector: 'app-root',
@@ -52,12 +52,13 @@ export class AppComponent implements OnInit {
   ];
 
   currentGrid: Grid | null = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
-  currentCell: CurrentCell = {
-    row: 0,
-    col: 0,
-    id: '00',
+  currentCell: Cell = {
+    row: 9,
+    col: 9,
+    isActive: false,
+    isSelect: false,
   };
-  currentControl = 9;
+  currentControl: number = 9;
 
   ControlNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -79,12 +80,16 @@ export class AppComponent implements OnInit {
           if (col === 0) {
             return {
               id: String(rowIndex) + String(colIndex),
+              row: rowIndex,
+              col: colIndex,
               isActive: false,
               isSelect: true,
             } as Cell;
           }
           return {
             id: String(rowIndex) + String(colIndex),
+            row: rowIndex,
+            col: colIndex,
             value: col,
             isActive: false,
             isSelect: false,
@@ -102,39 +107,83 @@ export class AppComponent implements OnInit {
     return newGrid;
   }
 
-  clickCell(cell: Cell): {} {
-    console.log(cell.id);
-    this.currentCell = {
-      row: Number(cell.id[0]),
-      col: Number(cell.id[1]),
-      id: cell.id,
-    };
-    return this.currentCell;
-
-    // const row = Number(cell.id[0]);
-    // const col = Number(cell.id[1]);
-    // this.currentGrid?.grid[row].row[col].isActive = !this.currentGrid?.grid[row].row[col].isActive;
-  }
-
-  clickControl(thing: number): number {
-    this.currentControl = thing;
-    return this.currentControl;
-  }
-
   updateCurrentGrid(grid: Grid): Grid {
     this.currentGrid = grid;
     return this.currentGrid;
   }
 
-  // updateCurrentCell(cellId: string, value: number) {
-  //   const row = Number(cellId[0]);
-  //   const col = Number(cellId[1]);
+  updateCurrentCell(cell: Cell): {} {
+    console.log(cell.value);
+    this.currentCell.isActive = false;
 
-  //   // this.currentGrid?.grid[row].row[col].value = value;
+    this.currentCell = {
+      id: cell.id,
+      row: cell.row,
+      col: cell.col,
+      value: cell.value,
+      comment: cell.comment,
+      isActive: true,
+      isSelect: cell.isSelect,
+    };
+    return this.currentCell;
+  }
+
+  updateControlNumber(control: number) {
+    if (this.currentControl === control) {
+      this.exitControlNumber();
+      return;
+    }
+    this.currentControl = control;
+    console.log(this.currentControl);
+    return this.currentControl;
+  }
+
+  exitControlNumber() {
+    this.currentControl = -1;
+    return this.currentControl;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  ControlNumberKeydown(event: KeyboardEvent): void {
+    const key = Number(event.key);
+    if (this.ControlNumber.includes(key)) {
+      this.updateControlNumber(key);
+    }
+  }
+
+  // @HostListener('document:keydown', ['$event'])
+  // DirectionKeydown(event: KeyboardEvent): void {
+  //   // const newCellId = Math.max((Number(this.currentCell.id)-10), 0);
+
+  //   const newCellRow = Math.max(this.currentCell.row - 1, 0);
+  //   const newCell: Cell  = {
+  //     id: `${newCellRow}${this.currentCell.col}`,
+  //     value: this.currentCell.
+  //   };
+
+
+  //   this.updateCurrentCell(null);
+
+  //   // if (event.key == 'ArrowUp') {
+  //   //   console.log('pressed up shift');
+  //   // }
+  //   // else {
+  //   //   console.log('just shift');
+  //   // }
+  //   // // console.log(event.key);
+  //   // // console.log(event.shiftKey);
+  //   // // console.log(event);
   // }
 
-
-
+  // exitEditing() {
+  //   this.updateCurrentCell({
+  //     id: '99',
+  //     row: 9,
+  //     col: 9,
+  //     isActive: false,
+  //     isSelect: false,
+  //   });
+  // }
 
 
 }

@@ -9,10 +9,10 @@
 
 <div class="divider"></div>
 
-<div *ngIf="!isOpen" class="console" style="display: none;">
+<div *ngIf="!isOpen" class="console" style="">
   <h3>Console</h3>
-  <span>Control: {{ currentControl }} </span>
-  <span>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </span>
+  <div>Control: {{ currentControl }} </div>
+  <div>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </div>
 </div>
 
 <div *ngIf="!isOpen" class="sudoku">
@@ -20,13 +20,20 @@
     <div *ngFor="let row of currentGrid?.grid" class="row">
       <div
         *ngFor="let col of row.row"
-        (click)="clickCell(col)"
+        (click)="updateCurrentCell(col)"
         class="col"
       >
-        <ng-container *ngIf="col.id === currentCell.id">
+        <ng-container *ngIf="col.row === currentCell.row">
+          <div class="Active-Nearby"></div>
+        </ng-container>
+        <ng-container *ngIf="col.col === currentCell.col">
+          <div class="Active-Nearby"></div>
+        </ng-container>
+        <ng-container *ngIf="col.col === currentCell.col && col.row === currentCell.row">
           <div class="Active"></div>
         </ng-container>
         <div class="cell">{{ col.value }}</div>
+        <!-- <div class="cell">{{ col.col }}_{{currentCell.row}}{{currentCell.col}}</div> -->
       </div>
     </div>
   </div>
@@ -34,8 +41,14 @@
   <div class="divider"></div>
 
   <div class="number-grid">
-    <button *ngFor="let number of ControlNumber" class="number" (click)="clickControl(number)">
-      {{ number }}
-    </button>
+    <div *ngFor="let number of ControlNumber" (click)="updateControlNumber(number)">
+
+      <ng-container *ngIf="number === currentControl">
+        <div class="number highlight"></div>
+      </ng-container>
+
+      <div class="number"> {{ number }} </div>
+
+    </div>
   </div>
 </div>

@@ -2,9 +2,9 @@
 :root {
   --font-size-sudoku: #{200%};
   --cell-min-size: #{calc(100% / 9)};
-  --cell-active-size: #{calc(100% * 0.4 / 9)};
+  --cell-active-size: #{calc(100% * 9 / 9)};
   --cell-padding: 12px;
-  --cell-bkgc: rgba(242, 255, 0, 0.494);
+  --cell-bkgc: transparent;
 }
 
 .divider {

@@ -1,7 +1,8 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Cell, Row, Grid } from './sudoku-util';
+import { Cell, Row, Grid } from './util/sudoku-util';
+import { sampleGrid } from "./util/sudoku-samples";
 
 @Component({
   selector: 'app-root',
@@ -51,7 +52,8 @@ export class AppComponent implements OnInit {
     [91, 92, 93, 94, 95, 96, 97, 0, 99]
   ];
 
-  currentGrid: Grid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
+  // currentGrid: Grid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
+  currentGrid: Grid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
   currentCell: Cell = {
     row: 9,
     col: 9,
@@ -64,7 +66,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
-    this.currentGrid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
+    // this.currentGrid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
+    this.currentGrid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
     console.log(this.currentGrid);
   }
 

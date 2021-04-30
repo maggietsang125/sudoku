@@ -2,7 +2,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import { Cell, Row, Grid } from './util/sudoku-util';
-import { sampleGrid } from "./util/sudoku-samples";
+import { sampleGrid } from './util/sudoku-samples';
 
 @Component({
   selector: 'app-root',
@@ -28,12 +28,36 @@ import { sampleGrid } from "./util/sudoku-samples";
         animate('0.5s')
       ]),
     ]),
+    // trigger('consolePage', [
+    //   state('openConsole', style({
+    //     width: '25%',
+    //     heigh: '100%',
+    //     'background-color': '#f2f1efc7',
+    //     position: 'absolute',
+    //     padding: '12px',
+    //     left: '0',
+    //     display: 'flex',
+    //     'flex-direction': 'column',
+    //   })),
+    //   state('closeConsole', style({
+    //     height: '5%',
+    //     width: '0%',
+    //     // display: 'none',
+    //   })),
+    //   transition('openConsole => closeConsole', [
+    //     animate('1s')
+    //   ]),
+    //   transition('closeConsole => openConsole', [
+    //     animate('0.5s')
+    //   ]),
+    // ]),
   ],
 })
 export class AppComponent implements OnInit {
   title = 'sudokuAng';
 
-  isOpen = true;
+  isOpeningScreen = true;
+  isConsole = true;
 
   firstGrid: Grid = {
     id: 'grid id 01',
@@ -60,7 +84,7 @@ export class AppComponent implements OnInit {
     isActive: false,
     isSelect: false,
   };
-  currentControl: number = 9;
+  currentControl = 9;
 
   ControlNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -71,8 +95,12 @@ export class AppComponent implements OnInit {
     console.log(this.currentGrid);
   }
 
-  toggle(): void {
-    this.isOpen = !this.isOpen;
+  toggleStartScreen(): void {
+    this.isOpeningScreen = !this.isOpeningScreen;
+  }
+
+  toggleConsole(): void {
+    this.isConsole = !this.isConsole;
   }
 
   formatGrid(array: number[][]): Grid {
@@ -162,8 +190,8 @@ export class AppComponent implements OnInit {
   }
 
   editCell(cell: Cell) {
-    if (!cell.isSelect) return;
-    if (this.currentControl === -1) return;
+    if (!cell.isSelect) { return; }
+    if (this.currentControl === -1) { return; }
 
     if (this.currentGrid.grid[cell.row].row[cell.col].value === this.currentControl) {
       this.currentGrid.grid[cell.row].row[cell.col].value = undefined;
@@ -174,5 +202,9 @@ export class AppComponent implements OnInit {
     console.log('cell edited');
     return this.currentCell;
   }
+
+  // checkRow(row: number) {
+  //   const tempRowthis.currentGrid.grid[row].row.map
+  // }
 
 }

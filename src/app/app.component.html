@@ -1,14 +1,17 @@
 <div
-  [@loadingPage]="isOpen ? 'open' : 'closed'"
+  [@loadingPage]="isOpeningScreen ? 'open' : 'closed'"
   class="open-close-container"
-  (click)="toggle()"
+  (click)="toggleStartScreen()"
 >
-  <!-- <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p> -->
+  <!-- <p>The box is now {{ isOpeningScreen ? 'Open' : 'Closed' }}!</p> -->
   <div>Sudoku</div>
 </div>
 
 <div class="divider"></div>
 
+<div>
+  <mat-icon class="mat-icon-rtl-mirror" svgIcon="thumb-up"></mat-icon>
+</div>
 <div *ngIf="!isOpen" class="console" style="">
   <h3>Console</h3>
   <div>Control: {{ currentControl }} </div>

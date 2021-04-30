@@ -1,7 +1,8 @@
 
 :root {
   --font-size-sudoku: #{200%};
-  --cell-min-size: #{calc(100% / 9)};
+  // --cell-min-size: #{calc(100% / 9)};
+  --cell-min-size: 46px;
   --cell-active-size: #{calc(100% * 9 / 9)};
   --cell-padding: 12px;
   --cell-bkgc: transparent;

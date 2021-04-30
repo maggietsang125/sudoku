@@ -10,15 +10,15 @@
 <div class="divider"></div>
 
 <div>
-  <mat-icon class="mat-icon-rtl-mirror" svgIcon="thumb-up"></mat-icon>
+  <mat-slider min="1" max="100" step="1" value="1"></mat-slider>
 </div>
-<div *ngIf="!isOpen" class="console" style="">
+<div *ngIf="!isOpeningScreen" class="console" style="">
   <h3>Console</h3>
   <div>Control: {{ currentControl }} </div>
   <div>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </div>
 </div>
 
-<div *ngIf="!isOpen" class="sudoku">
+<div *ngIf="!isOpeningScreen" class="sudoku">
   <div class="sudoku-container width-50">
     <div *ngFor="let row of currentGrid?.grid" class="row">
       <div
@@ -35,7 +35,9 @@
         <ng-container *ngIf="col.col === currentCell.col && col.row === currentCell.row">
           <div class="Active"></div>
         </ng-container>
-        <div class="cell">{{ col.value }}</div>
+        <div class="cell" [style.color]="col.isSelect?'blue':'black'">
+          {{ col.value }}
+        </div>
         <!-- <div class="cell">{{ col.col }}_{{currentCell.row}}{{currentCell.col}}</div> -->
       </div>
     </div>

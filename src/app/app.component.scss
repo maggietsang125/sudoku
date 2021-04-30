@@ -109,33 +109,22 @@ $cell-bkgc: var(--cell-bkgc);
       }
 
       .col {
-        min-width: var(--cell-min-size);
-        min-height: var(--cell-min-size);
-        max-width: var(--cell-min-size);
-        max-height: var(--cell-min-size);
         overflow: hidden;
         position: relative;
         background-color: transparent;
 
+        &:nth-child(3n) {
+          border-right: 1px solid rgb(87, 86, 86);
+        }
+
         .cell {
           padding: var(--cell-padding);
-          // min-width: var(--cell-min-size);
-          // min-height: var(--cell-min-size);
-          // max-width: var(--cell-min-size);
-          // max-height: var(--cell-min-size);
-          width: (100% - var(--cell-padding));
-          height: (100% - var(--cell-padding));
+          width: var(--cell-min-size);
+          height: var(--cell-min-size);
 
           text-align: center;
           font-size: var(--font-size-sudoku);
           background-color: transparent;
-
-          &:hover {
-            background-color: rgba(147, 191, 238, 0.438);
-          }
-          &:nth-child(3n) {
-            border-right: 1px solid rgb(87, 86, 86);
-          }
         }
       }
     }

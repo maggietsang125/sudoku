@@ -138,7 +138,7 @@ export class AppComponent implements OnInit {
     return newGrid;
   }
 
-  resetGrid() {
+  resetGrid(): void {
     this.currentGrid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
     this.exitControlNumber();
   }
@@ -161,11 +161,10 @@ export class AppComponent implements OnInit {
       isActive: true,
       isSelect: cell.isSelect,
     };
-    // this.editCell(cell);
     return this.currentCell;
   }
 
-  updateControlNumber(control: number) {
+  updateControlNumber(control: number): number {
     this.currentControl = control;
 
     if (this.currentCell.isSelect) {
@@ -176,7 +175,7 @@ export class AppComponent implements OnInit {
     return this.currentControl;
   }
 
-  exitControlNumber() {
+  exitControlNumber(): number {
     this.currentControl = -1;
     return this.currentControl;
   }
@@ -189,6 +188,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // tslint:disable-next-line: typedef
   editCell(cell: Cell) {
     if (!cell.isSelect) { return; }
     if (this.currentControl === -1) { return; }

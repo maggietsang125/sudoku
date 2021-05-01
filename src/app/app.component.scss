@@ -125,6 +125,7 @@ $cell-bkgc: var(--cell-bkgc);
           text-align: center;
           font-size: var(--font-size-sudoku);
           background-color: transparent;
+          border: 1px solid rgb(230, 230, 230);
         }
       }
     }
@@ -137,13 +138,14 @@ $cell-bkgc: var(--cell-bkgc);
 
     position: absolute;
     background-color: $cell-bkgc;
-  }
-  .Active-Nearby {
-    padding: var(--cell-padding);
-    width: var(--cell-active-size);
-    height: var(--cell-active-size);
 
-    position: absolute;
+  }
+
+  .nearby {
     background-color: rgba(129, 143, 219, 0.192);
+  }
+
+  .light {
+    filter: opacity(0.8);
   }
 }

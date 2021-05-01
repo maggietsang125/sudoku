@@ -12,7 +12,7 @@
 <div>
   <mat-slider min="1" max="100" step="1" value="1"></mat-slider>
 </div>
-<div *ngIf="!isOpeningScreen" class="console" style="">
+<div *ngIf="!isOpeningScreen" class="console">
   <h3>Console</h3>
   <div>Control: {{ currentControl }} </div>
   <div>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </div>
@@ -26,11 +26,11 @@
         (click)="updateCurrentCell(col)"
         class="col"
       >
-        <ng-container *ngIf="col.row === currentCell.row">
-          <div class="Active-Nearby"></div>
+        <ng-container *ngIf="col.row === currentCell.row || col.col === currentCell.col">
+          <div class="Active nearby"></div>
         </ng-container>
-        <ng-container *ngIf="col.col === currentCell.col">
-          <div class="Active-Nearby"></div>
+        <ng-container *ngIf="(col.value === currentCell.value && currentCell.value !== undefined)">
+          <div class="Active nearby light"></div>
         </ng-container>
         <ng-container *ngIf="col.col === currentCell.col && col.row === currentCell.row">
           <div class="Active"></div>

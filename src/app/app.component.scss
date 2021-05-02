@@ -146,6 +146,6 @@ $cell-bkgc: var(--cell-bkgc);
   }
 
   .light {
-    filter: opacity(0.8);
+    filter: grayscale(0.1);
   }
 }

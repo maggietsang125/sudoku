@@ -203,6 +203,11 @@ export class AppComponent implements OnInit {
     return this.currentCell;
   }
 
+  // checkNumberPresence(control: number) {
+  //   this.currentGrid.grid.
+
+  // }
+
   // checkRow(row: number) {
   //   const tempRowthis.currentGrid.grid[row].row.map
   // }

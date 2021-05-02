@@ -11,11 +11,12 @@ export interface Cell {
 export interface Row {
   id: string;
   row: Cell[];
+  isComplete?: boolean;
 }
 
 export interface Grid {
   id: string;
-  grid: Row[];
+  grid: Cell[][];
 }
 
 export interface CurrentCell {
@@ -23,6 +24,13 @@ export interface CurrentCell {
   col: number;
   id?: string;
 }
+
+export interface CurrentCell {
+  row: number;
+  col: number;
+  id?: string;
+}
+
 
 // export interface ControlNumber {
 //   One: number;

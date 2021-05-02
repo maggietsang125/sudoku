@@ -22,7 +22,7 @@
   <div class="sudoku-container width-50">
     <div *ngFor="let row of currentGrid?.grid" class="row">
       <div
-        *ngFor="let col of row.row"
+        *ngFor="let col of row"
         (click)="updateCurrentCell(col)"
         class="col"
       >

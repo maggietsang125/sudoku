@@ -76,8 +76,7 @@ export class AppComponent implements OnInit {
     [91, 92, 93, 94, 95, 96, 97, 0, 99]
   ];
 
-  // currentGrid: Grid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
-  currentGrid: Grid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
+  currentGrid: Grid = this.updateCurrent2dGrid(this.format2DGrid(sampleGrid));
   currentCell: Cell = {
     row: 9,
     col: 9,
@@ -89,9 +88,8 @@ export class AppComponent implements OnInit {
   ControlNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    // this.currentGrid = this.updateCurrentGrid(this.formatGrid(this.simpleArray));
-    this.currentGrid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
+    // this.currentGrid = this.updateCurrent2dGrid(this.format2DGrid(this.simpleArray));
+    this.currentGrid = this.updateCurrent2dGrid(this.format2DGrid(sampleGrid));
     console.log(this.currentGrid);
   }
 
@@ -103,47 +101,43 @@ export class AppComponent implements OnInit {
     this.isConsole = !this.isConsole;
   }
 
-  formatGrid(array: number[][]): Grid {
-    const newGrid: Grid = {
-      id: 'grid id 01',
-      grid: array.map((row, rowIndex) => {
-        const newRow = row.map((col, colIndex) => {
-          if (col === 0) {
-            return {
-              id: String(rowIndex) + String(colIndex),
-              row: rowIndex,
-              col: colIndex,
-              isActive: false,
-              isSelect: true,
-            } as Cell;
-          }
+  format2DGrid(array: number[][]) {
+    const newGrid = array.map((row, rowIndex) => {
+      const newRow = row.map((col, colIndex) => {
+        if (col === 0) {
           return {
             id: String(rowIndex) + String(colIndex),
             row: rowIndex,
             col: colIndex,
-            value: col,
             isActive: false,
-            isSelect: false,
+            isSelect: true,
           } as Cell;
-
-        });
+        }
         return {
-          id: String(rowIndex),
-          row: newRow,
-        };
-      })
-    };
-    console.log('newGrid: ' + newGrid.id);
+          id: String(rowIndex) + String(colIndex),
+          row: rowIndex,
+          col: colIndex,
+          value: col,
+          isActive: false,
+          isSelect: false,
+        } as Cell;
+      });
+      return newRow;
+    });
 
-    return newGrid;
+    // console.log('newGrid: ' + newGrid);
+    return {
+      id: '01',
+      grid: newGrid,
+    };
   }
 
   resetGrid(): void {
-    this.currentGrid = this.updateCurrentGrid(this.formatGrid(sampleGrid));
+    this.currentGrid = this.updateCurrent2dGrid(this.format2DGrid(sampleGrid));
     this.exitControlNumber();
   }
 
-  updateCurrentGrid(grid: Grid): Grid {
+  updateCurrent2dGrid(grid: Grid): Grid {
     this.currentGrid = grid;
     return this.currentGrid;
   }
@@ -193,13 +187,17 @@ export class AppComponent implements OnInit {
     if (!cell.isSelect) { return; }
     if (this.currentControl === -1) { return; }
 
-    if (this.currentGrid.grid[cell.row].row[cell.col].value === this.currentControl) {
-      this.currentGrid.grid[cell.row].row[cell.col].value = undefined;
+    if (this.currentGrid.grid[cell.row][cell.col].value === this.currentControl) {
+      this.currentGrid.grid[cell.row][cell.col].value = undefined;
       return;
     }
+    this.currentGrid.grid[cell.row][cell.col].value = this.currentControl;
 
-    this.currentGrid.grid[cell.row].row[cell.col].value = this.currentControl;
+
+
     console.log('cell edited');
+
+    // this.checkRow(cell.row);
     return this.currentCell;
   }
 
@@ -208,8 +206,17 @@ export class AppComponent implements OnInit {
 
   // }
 
-  // checkRow(row: number) {
-  //   const tempRowthis.currentGrid.grid[row].row.map
+  // checkRow(row: number): void {
+  //   // const tempRow = this.currentGrid.grid[row].row.filter(cell => {
+
+  //   // });
+  //   // const tempRow = this.ControlNumber.filter(num => {
+  //   //   this.currentGrid.grid[row].row.forEach(cell => cell.value === num);
+  //   // });
+  //   const tempRow = this.currentGrid.grid[row].row.map(cell => cell.value).filter(Number);
+
+  //   // tempRow.every(v => this.ControlNumber.includes(v));
+
   // }
 
 }

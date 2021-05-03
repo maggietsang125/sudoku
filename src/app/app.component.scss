@@ -148,4 +148,13 @@ $cell-bkgc: var(--cell-bkgc);
   .light {
     filter: grayscale(0.1);
   }
+
+  .error {
+    padding: var(--cell-padding);
+    width: var(--cell-active-size);
+    height: var(--cell-active-size);
+
+    position: absolute;
+    background-color: rgba(219, 129, 129, 0.582);
+  }
 }

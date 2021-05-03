@@ -14,7 +14,7 @@
 </div> -->
 <div *ngIf="!isOpeningScreen" class="console">
   <h3>Console</h3>
-  <div>Control: {{ currentControl }} </div>
+  <div>Control: {{ currentControl.value }} </div>
   <div>Cell: [{{ currentCell.row }}, {{ currentCell.col }}] </div>
 </div>
 
@@ -32,8 +32,11 @@
         <ng-container *ngIf="(col.value === currentCell.value && currentCell.value !== undefined)">
           <div class="Active nearby light"></div>
         </ng-container>
-        <ng-container *ngIf="col.col === currentCell.col && col.row === currentCell.row">
+        <ng-container *ngIf="col.id === currentCell.id">
           <div class="Active"></div>
+        </ng-container>
+        <ng-container *ngIf="currentCell.isError && col.id === currentCell.id">
+          <div class="error"></div>
         </ng-container>
         <div class="cell" [style.color]="col.isSelect?'blue':'black'">
           {{ col.value }}
@@ -47,7 +50,7 @@
 
   <div class="number-grid">
     <div *ngFor="let number of ControlNumber" (click)="updateControlNumber(number)">
-      <ng-container *ngIf="number === currentControl">
+      <ng-container *ngIf="number === currentControl.value">
         <div class="number highlight"></div>
       </ng-container>
       <div class="number"> {{ number }} </div>

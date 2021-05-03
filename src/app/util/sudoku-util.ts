@@ -6,6 +6,7 @@ export interface Cell {
   comment?: number[];
   isActive: boolean;
   isSelect: boolean;
+  isError?: boolean;
 }
 
 export interface Row {
@@ -29,6 +30,11 @@ export interface CurrentCell {
   row: number;
   col: number;
   id?: string;
+}
+
+export interface CurrentControl {
+  value: number;
+  completed: boolean;
 }
 
 

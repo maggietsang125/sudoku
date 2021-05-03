@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Cell, Row, Grid } from './util/sudoku-util';
+import { Cell, Row, Grid, CurrentControl } from './util/sudoku-util';
 import { sampleGrid } from './util/sudoku-samples';
 
 @Component({
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
     isActive: false,
     isSelect: false,
   };
-  currentControl = 9;
+  currentControl: CurrentControl = { value: 9, completed: false };
 
   ControlNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -91,6 +91,10 @@ export class AppComponent implements OnInit {
     // this.currentGrid = this.updateCurrent2dGrid(this.format2DGrid(this.simpleArray));
     this.currentGrid = this.updateCurrent2dGrid(this.format2DGrid(sampleGrid));
     console.log(this.currentGrid);
+
+    // this.ControlNumber.every(num => {
+    //   this.checkRow(num) ? con
+    // });
   }
 
   toggleStartScreen(): void {
@@ -111,6 +115,7 @@ export class AppComponent implements OnInit {
             col: colIndex,
             isActive: false,
             isSelect: true,
+            isError: false,
           } as Cell;
         }
         return {
@@ -120,6 +125,7 @@ export class AppComponent implements OnInit {
           value: col,
           isActive: false,
           isSelect: false,
+          isError: false,
         } as Cell;
       });
       return newRow;
@@ -154,12 +160,13 @@ export class AppComponent implements OnInit {
       comment: cell.comment,
       isActive: true,
       isSelect: cell.isSelect,
+      isError: cell.isError,
     };
     return this.currentCell;
   }
 
-  updateControlNumber(control: number): number {
-    this.currentControl = control;
+  updateControlNumber(control: number): CurrentControl {
+    this.currentControl.value = control;
 
     if (this.currentCell.isSelect) {
       this.editCell(this.currentCell);
@@ -169,8 +176,8 @@ export class AppComponent implements OnInit {
     return this.currentControl;
   }
 
-  exitControlNumber(): number {
-    this.currentControl = -1;
+  exitControlNumber(): CurrentControl {
+    this.currentControl.value = -1;
     return this.currentControl;
   }
 
@@ -185,38 +192,60 @@ export class AppComponent implements OnInit {
   // tslint:disable-next-line: typedef
   editCell(cell: Cell) {
     if (!cell.isSelect) { return; }
-    if (this.currentControl === -1) { return; }
+    if (this.currentControl.value === -1) { return; }
 
-    if (this.currentGrid.grid[cell.row][cell.col].value === this.currentControl) {
+    if (this.currentGrid.grid[cell.row][cell.col].value === this.currentControl.value) {
       this.currentGrid.grid[cell.row][cell.col].value = undefined;
       return;
     }
-    this.currentGrid.grid[cell.row][cell.col].value = this.currentControl;
+    this.currentGrid.grid[cell.row][cell.col].value = this.currentControl.value;
 
 
 
     console.log('cell edited');
 
-    // this.checkRow(cell.row);
+    this.checkRow(cell.row);
+    // // this.checkColumn(cell.col);
+    // this.checkNumberPresence(cell.row, cell.col);
     return this.currentCell;
   }
 
-  // checkNumberPresence(control: number) {
-  //   this.currentGrid.grid.
+  checkNumberPresence(row: number, col: number): boolean {
+    const cell = this.currentGrid.grid[this.currentCell.row][this.currentCell.col];
+    cell.isError = this.checkRow(row) && this.checkColumn(col);
+    console.log('cell.isError: ' + cell.isError);
+    this.updateCurrentCell(cell);
+    // this.editCell(cell);
 
-  // }
+    return cell.isError;
+  }
 
-  // checkRow(row: number): void {
-  //   // const tempRow = this.currentGrid.grid[row].row.filter(cell => {
+  checkRow(row: number): boolean {
+    const cell = this.currentGrid.grid[this.currentCell.row][this.currentCell.col];
+    const tempRow = this.currentGrid.grid[row].map(col => col.value).filter(Number);
 
-  //   // });
-  //   // const tempRow = this.ControlNumber.filter(num => {
-  //   //   this.currentGrid.grid[row].row.forEach(cell => cell.value === num);
-  //   // });
-  //   const tempRow = this.currentGrid.grid[row].row.map(cell => cell.value).filter(Number);
+    tempRow.some(x => tempRow.indexOf(x) !== tempRow.lastIndexOf(x)) ? cell.isError = true : cell.isError = false;
+    this.updateCurrentCell(cell);
 
-  //   // tempRow.every(v => this.ControlNumber.includes(v));
+    console.log('check row: ' + cell.isError);
+    return cell.isError;
 
-  // }
+    // const tempRow = this.currentGrid.grid[row].map(col => col.value).filter(Number);
+    // return tempRow.some(x => tempRow.indexOf(x) !== tempRow.lastIndexOf(x));
+  }
+
+  checkColumn(col: number): boolean {
+    // const cell = this.currentGrid.grid[this.currentCell.row][this.currentCell.col];
+
+    // const tempCol = this.currentGrid.grid.map(row => row[col].value).filter(Number);
+    // tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x)) ? cell.isError = true : cell.isError = false;
+    // this.updateCurrentCell(cell);
+
+    // console.log('check col: ' + cell.isError);
+    // return cell.isError;
+
+    const tempCol = this.currentGrid.grid.map(row => row[col].value).filter(Number);
+    return tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x));
+  }
 
 }

@@ -212,50 +212,26 @@ export class AppComponent implements OnInit {
       return;
     }
     this.currentGrid.grid[cell.row][cell.col].value = this.currentControl.value;
-    console.log('cell edited');
+    this.currentGrid.grid[cell.row][cell.col].isError = this.checkDuplicate(cell.row, cell.col);
 
-    this.checkRow(cell.row);
-    // // this.checkColumn(cell.col);
-    // this.checkNumberPresence(cell.row, cell.col);
+    console.log('cell edited');
     return this.currentCell;
   }
 
-  checkNumberPresence(row: number, col: number): boolean {
+  checkDuplicate(row: number, col: number): boolean {
+    console.log('\n inside check duplicates \n --------------------------------------');
     const cell = this.currentGrid.grid[this.currentCell.row][this.currentCell.col];
-    cell.isError = this.checkRow(row) && this.checkColumn(col);
-    console.log('cell.isError: ' + cell.isError);
+
+    const tempRow = this.currentGrid.grid[row].map(column => column.value).filter(Number);
+    const tempCol = this.currentGrid.grid.map(rows => rows[col].value).filter(Number);
+
+    cell.isError = (
+      tempRow.some(x => tempRow.indexOf(x) !== tempRow.lastIndexOf(x)) ||
+      tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x))
+    );
+
     this.updateCurrentCell(cell);
-    // this.editCell(cell);
-
     return cell.isError;
-  }
-
-  checkRow(row: number): boolean {
-    const cell = this.currentGrid.grid[this.currentCell.row][this.currentCell.col];
-    const tempRow = this.currentGrid.grid[row].map(col => col.value).filter(Number);
-
-    tempRow.some(x => tempRow.indexOf(x) !== tempRow.lastIndexOf(x)) ? cell.isError = true : cell.isError = false;
-    this.updateCurrentCell(cell);
-
-    console.log('check row: ' + cell.isError);
-    return cell.isError;
-
-    // const tempRow = this.currentGrid.grid[row].map(col => col.value).filter(Number);
-    // return tempRow.some(x => tempRow.indexOf(x) !== tempRow.lastIndexOf(x));
-  }
-
-  checkColumn(col: number): boolean {
-    // const cell = this.currentGrid.grid[this.currentCell.row][this.currentCell.col];
-
-    // const tempCol = this.currentGrid.grid.map(row => row[col].value).filter(Number);
-    // tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x)) ? cell.isError = true : cell.isError = false;
-    // this.updateCurrentCell(cell);
-
-    // console.log('check col: ' + cell.isError);
-    // return cell.isError;
-
-    const tempCol = this.currentGrid.grid.map(row => row[col].value).filter(Number);
-    return tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x));
   }
 
 }

@@ -168,18 +168,25 @@ export class AppComponent implements OnInit {
 
   updateControlNumber(control: number): CurrentControl {
     this.currentControl.value = control;
-
-    if (this.currentCell.isSelect) {
+    if (this.currentCell.isSelect && this.currentCell.value !== control) {
       this.editCell(this.currentCell);
+      this.updateCurrentCell(this.currentCell);
+    }
+    else if (this.currentCell.value === this.currentControl.value) {
+      this.removeCurrentCell();
     }
 
-    console.log(this.currentControl);
+    console.log('Control: ' + this.currentControl.value);
     return this.currentControl;
   }
 
-  exitControlNumber(): CurrentControl {
-    this.currentControl.value = -1;
-    return this.currentControl;
+  @HostListener('document:keydown.delete', ['$event'])
+  removeCurrentCell(event?: KeyboardEvent): void {
+    console.log('delete cell');
+    this.currentGrid.grid[this.currentCell.row][this.currentCell.col].value = 0;
+    this.currentGrid.grid[this.currentCell.row][this.currentCell.col].isError = false;
+    this.updateCurrentCell(this.currentGrid.grid[this.currentCell.row][this.currentCell.col]);
+    return;
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -190,19 +197,21 @@ export class AppComponent implements OnInit {
     }
   }
 
+  exitControlNumber(): CurrentControl {
+    this.currentControl.value = -1;
+    return this.currentControl;
+  }
+
   // tslint:disable-next-line: typedef
   editCell(cell: Cell) {
     if (!cell.isSelect) { return; }
     if (this.currentControl.value === -1) { return; }
 
-    if (this.currentGrid.grid[cell.row][cell.col].value === this.currentControl.value) {
-      this.currentGrid.grid[cell.row][cell.col].value = undefined;
+    if (this.currentCell.value === this.currentControl.value) {
+      this.removeCurrentCell();
       return;
     }
     this.currentGrid.grid[cell.row][cell.col].value = this.currentControl.value;
-
-
-
     console.log('cell edited');
 
     this.checkRow(cell.row);

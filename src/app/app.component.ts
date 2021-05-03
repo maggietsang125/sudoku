@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
     this.isConsole = !this.isConsole;
   }
 
-  format2DGrid(array: number[][]) {
+  format2DGrid(array: number[][]): Grid {
     const newGrid = array.map((row, rowIndex) => {
       const newRow = row.map((col, colIndex) => {
         if (col === 0) {
@@ -113,6 +113,7 @@ export class AppComponent implements OnInit {
             id: String(rowIndex) + String(colIndex),
             row: rowIndex,
             col: colIndex,
+            value: col,
             isActive: false,
             isSelect: true,
             isError: false,
@@ -149,7 +150,7 @@ export class AppComponent implements OnInit {
   }
 
   updateCurrentCell(cell: Cell): {} {
-    console.log(cell.value);
+    console.log('id: ' + cell.id + ', value: ' + cell.value, ', isSelect: ' + cell.isSelect + ', isError: ' + cell.isError);
     this.currentCell.isActive = false;
 
     this.currentCell = {

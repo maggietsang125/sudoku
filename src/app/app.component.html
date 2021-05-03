@@ -22,23 +22,23 @@
   <div class="sudoku-container width-50">
     <div *ngFor="let row of currentGrid?.grid" class="row">
       <div
-        *ngFor="let col of row"
-        (click)="updateCurrentCell(col)"
+        *ngFor="let col of row| cell: currentCell"
+        (click)="updateCurrentCell(col.cell)"
         class="col"
       >
-        <ng-container *ngIf="col.row === currentCell.row || col.col === currentCell.col">
+        <!-- <ng-container *ngIf="col.cell.row === currentCell.row || col.cell.col === currentCell.col">
           <div class="Active nearby"></div>
         </ng-container>
         <ng-container *ngIf="(col.value === currentCell.value && currentCell.value !== undefined)">
           <div class="Active nearby light"></div>
         </ng-container>
-        <ng-container *ngIf="col.id === currentCell.id">
+        <ng-container *ngIf="col.cell.id === currentCell.id">
           <div class="Active"></div>
         </ng-container>
-        <ng-container *ngIf="currentCell.isError && col.id === currentCell.id">
+        <ng-container *ngIf="currentCell.isError && col.cell.id === currentCell.id">
           <div class="error"></div>
-        </ng-container>
-        <div class="cell" [style.color]="col.isSelect?'blue':'black'">
+        </ng-container> -->
+        <div class="cell" [style.color]="col.color" [style.background-color]="col.background">
           {{ col.value }}
         </div>
         <!-- <div class="cell">{{ col.col }}_{{currentCell.row}}{{currentCell.col}}</div> -->

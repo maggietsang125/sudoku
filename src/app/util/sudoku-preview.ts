@@ -4,9 +4,9 @@ export const cellValueColor = {
 }
 
 export const colBackgroundColor = {
-  Current: 'rgba(129, 180, 219, 0.3)',
-  NearBy: 'rgba(129, 180, 219, 0.1)',
-  SameValue: 'rgba(129, 180, 219, 0.1)',
+  Current: 'rgba(0, 146, 255, 0.3)',
+  NearBy: 'rgba(179, 217, 255, 0.5)',
+  SameValue: 'rgba(0, 255, 191, 0.1)',
   Fixed: 'white',
   Error: 'rgba(221, 104, 104, 0.582)'
 }

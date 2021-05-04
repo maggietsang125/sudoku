@@ -224,11 +224,21 @@ export class AppComponent implements OnInit {
 
     const tempRow = this.currentGrid.grid[row].map(column => column.value).filter(Number);
     const tempCol = this.currentGrid.grid.map(rows => rows[col].value).filter(Number);
+    const cutRow = Math.trunc(row / 3) * 3;
+    const cutCol = Math.trunc(col / 3) * 3;
+
+    const smallGrid = this.currentGrid.grid.slice(cutRow, cutRow + 3)
+      .map(rows => rows.slice(cutCol, cutCol + 3))
+      .reduce((prev, next) => prev.concat(next))
+      .map(column => column.value)
+      .filter(Number);
 
     cell.isError = (
       tempRow.some(x => tempRow.indexOf(x) !== tempRow.lastIndexOf(x)) ||
-      tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x))
+      tempCol.some(x => tempCol.indexOf(x) !== tempCol.lastIndexOf(x)) ||
+      smallGrid.some(x => smallGrid.indexOf(x) !== smallGrid.lastIndexOf(x))
     );
+
 
     this.updateCurrentCell(cell);
     return cell.isError;

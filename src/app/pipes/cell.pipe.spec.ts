@@ -1,8 +1,8 @@
-import { CellPipe } from './cell.pipe';
+import { CellPreviewPipe } from './cell.pipe';
 
-describe('CellPipe', () => {
+describe('CellPreviewPipe', () => {
   it('create an instance', () => {
-    const pipe = new CellPipe();
+    const pipe = new CellPreviewPipe();
     expect(pipe).toBeTruthy();
   });
 });

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { cellValueColor, colBackgroundColor } from '../util/sudoku-preview';
-import { Cell, CurrentCell } from '../util/sudoku-util';
+import { Cell } from '../util/sudoku-util';
 
 export interface CellPreviewInfro {
   value: number | undefined;
@@ -14,7 +14,7 @@ export interface CellPreviewInfro {
 @Pipe({
   name: 'cell'
 })
-export class CellPipe implements PipeTransform {
+export class CellPreviewPipe implements PipeTransform {
 
   transform(row: Cell[], currentCell: Cell): CellPreviewInfro[] {
     const tempRow: CellPreviewInfro[] = row.map(col => {

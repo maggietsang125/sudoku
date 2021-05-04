@@ -17,13 +17,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CellPipe } from './pipes/cell.pipe';
+import { CellPreviewPipe } from './pipes/cell.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CellPipe
+    CellPreviewPipe
   ],
   imports: [
     BrowserModule,

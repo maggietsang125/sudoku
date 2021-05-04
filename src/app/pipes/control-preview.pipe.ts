@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { controlBackgroundColorSpec, controlColorSpec } from '../util/sudoku-preview';
-import { CurrentControl } from '../util/sudoku-util';
+import { Control, CurrentControl } from '../util/sudoku-util';
 
 export interface ControlPreviewInfo {
   value: number;
@@ -12,17 +12,15 @@ export interface ControlPreviewInfo {
   name: 'controlPreview'
 })
 export class ControlPreviewPipe implements PipeTransform {
-
-  transform(controlList: number[], currentControl: CurrentControl): ControlPreviewInfo[] {
+  transform(controlList: Control[], currentControl: CurrentControl): ControlPreviewInfo[] {
     return controlList.map(num => {
       return {
-        value: num,
-        background: controlBackgroundColor(num, currentControl),
-        color: controlColor(num, currentControl),
+        value: num.value,
+        background: controlBackgroundColor(num.value, currentControl),
+        color: controlColor(num.value, currentControl),
       };
     });
   }
-
 }
 
 function controlBackgroundColor(control: number, currentControl: CurrentControl): string {

@@ -20,6 +20,23 @@ export interface Grid {
   grid: Cell[][];
 }
 
+export interface Control {
+  value: number;
+  isCompleted: boolean;
+}
+
+export let controlNumber2: Control[] = [
+  {value: 1, isCompleted: false},
+  {value: 2, isCompleted: false},
+  {value: 3, isCompleted: false},
+  {value: 4, isCompleted: false},
+  {value: 5, isCompleted: false},
+  {value: 6, isCompleted: false},
+  {value: 7, isCompleted: false},
+  {value: 8, isCompleted: false},
+  {value: 9, isCompleted: false},
+];
+
 export interface CurrentCell {
   row: number;
   col: number;

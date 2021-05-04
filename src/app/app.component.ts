@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Cell, Row, Grid, CurrentControl } from './util/sudoku-util';
+import { Cell, Row, Grid, CurrentControl, controlNumber2 } from './util/sudoku-util';
 import { sampleGrid } from './util/sudoku-samples';
 
 @Component({
@@ -86,6 +86,7 @@ export class AppComponent implements OnInit {
   currentControl: CurrentControl = { value: 9, completed: false };
 
   ControlNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  controlNumber = controlNumber2;
 
   ngOnInit(): void {
     // this.currentGrid = this.updateCurrent2dGrid(this.format2DGrid(this.simpleArray));

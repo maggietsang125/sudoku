@@ -26,18 +26,6 @@
         (click)="updateCurrentCell(col.cell)"
         class="col"
       >
-        <!-- <ng-container *ngIf="col.cell.row === currentCell.row || col.cell.col === currentCell.col">
-          <div class="Active nearby"></div>
-        </ng-container>
-        <ng-container *ngIf="(col.value === currentCell.value && currentCell.value !== undefined)">
-          <div class="Active nearby light"></div>
-        </ng-container>
-        <ng-container *ngIf="col.cell.id === currentCell.id">
-          <div class="Active"></div>
-        </ng-container>
-        <ng-container *ngIf="currentCell.isError && col.cell.id === currentCell.id">
-          <div class="error"></div>
-        </ng-container> -->
         <div class="cell" [style.color]="col.color" [style.background-color]="col.background">
           {{ col.value }}
         </div>

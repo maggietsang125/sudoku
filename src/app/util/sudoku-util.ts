@@ -34,7 +34,7 @@ export interface CurrentCell {
 
 export interface CurrentControl {
   value: number;
-  completed: boolean;
+  completed?: boolean;
 }
 
 

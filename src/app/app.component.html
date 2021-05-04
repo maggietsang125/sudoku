@@ -26,7 +26,10 @@
         (click)="updateCurrentCell(col.cell)"
         class="col"
       >
-        <div class="cell" [style.color]="col.color" [style.background-color]="col.background">
+        <div class="cell"
+        [style.color]="col.color"
+        [style.background-color]="col.background"
+        >
           {{ col.value }}
         </div>
         <!-- <div class="cell">{{ col.col }}_{{currentCell.row}}{{currentCell.col}}</div> -->
@@ -37,11 +40,11 @@
   <div class="divider"></div>
 
   <div class="number-grid">
-    <div *ngFor="let number of ControlNumber" (click)="updateControlNumber(number)">
-      <ng-container *ngIf="number === currentControl.value">
-        <div class="number highlight"></div>
-      </ng-container>
-      <div class="number"> {{ number }} </div>
+    <div *ngFor="let number of ControlNumber | controlPreview: currentControl" (click)="updateControlNumber(number.value)">
+      <div class="number"
+        [style.background-color]="number.background"
+        [style.color]="number.color"
+      > {{ number.value }} </div>
     </div>
     <br>
     <div class="reset" (click)="resetGrid()">

@@ -167,7 +167,10 @@ export class AppComponent implements OnInit {
   }
 
   updateControlNumber(control: number): CurrentControl {
-    this.currentControl.value = control;
+    this.currentControl = {
+      value: control,
+    };
+
     if (this.currentCell.isSelect && this.currentCell.value !== control) {
       this.editCell(this.currentCell);
       this.updateCurrentCell(this.currentCell);
@@ -202,8 +205,7 @@ export class AppComponent implements OnInit {
     return this.currentControl;
   }
 
-  // tslint:disable-next-line: typedef
-  editCell(cell: Cell) {
+  editCell(cell: Cell): void {
     if (!cell.isSelect) { return; }
     if (this.currentControl.value === -1) { return; }
 
@@ -215,7 +217,7 @@ export class AppComponent implements OnInit {
     this.currentGrid.grid[cell.row][cell.col].isError = this.checkDuplicate(cell.row, cell.col);
 
     console.log('cell edited');
-    return this.currentCell;
+    return;
   }
 
   checkDuplicate(row: number, col: number): boolean {

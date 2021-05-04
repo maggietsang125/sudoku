@@ -18,12 +18,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CellPreviewPipe } from './pipes/cell.pipe';
+import { ControlPreviewPipe } from './pipes/control-preview.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CellPreviewPipe
+    CellPreviewPipe,
+    ControlPreviewPipe
   ],
   imports: [
     BrowserModule,

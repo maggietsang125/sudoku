@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { cellValueColor, colBackgroundColor } from '../util/sudoku-preview';
+import { cellValueColorSpec, colBackgroundColorSpec } from '../util/sudoku-preview';
 import { Cell } from '../util/sudoku-util';
 
 export interface CellPreviewInfro {
@@ -34,23 +34,23 @@ export class CellPreviewPipe implements PipeTransform {
 
 function cellBackgroundColor(cell: Cell, currentCell: Cell): string {
   if (cell.isError) {
-    return colBackgroundColor.Error;
+    return colBackgroundColorSpec.Error;
   }
   else if (cell.id === currentCell.id) {
-    return colBackgroundColor.Current;
+    return colBackgroundColorSpec.Current;
   }
   else if (cell.row === currentCell.row || cell.col === currentCell.col) {
-    return colBackgroundColor.NearBy;
+    return colBackgroundColorSpec.NearBy;
   }
   else if (cell.value === currentCell.value && cell.value !== 0) {
-    return colBackgroundColor.SameValue;
+    return colBackgroundColorSpec.SameValue;
   }
-  return colBackgroundColor.Fixed;
+  return colBackgroundColorSpec.Fixed;
 }
 
 function cellColor(cell: Cell): string {
   if (cell.isSelect) {
-    return cellValueColor.Edit;
+    return cellValueColorSpec.Edit;
   }
-  return cellValueColor.Fixed;
+  return cellValueColorSpec.Fixed;
 }

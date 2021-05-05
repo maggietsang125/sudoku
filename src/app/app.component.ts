@@ -257,7 +257,7 @@ export class AppComponent implements OnInit {
   }
 
   checkControlCompletion(): Control[] {
-    console.log('inside check control');
+    console.log('inside check control here');
 
     const tempRow = this.currentGrid.grid
       .map(row => row.map(col => col.value))

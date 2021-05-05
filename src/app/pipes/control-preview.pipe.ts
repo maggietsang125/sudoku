@@ -16,23 +16,25 @@ export class ControlPreviewPipe implements PipeTransform {
     return controlList.map(num => {
       return {
         value: num.value,
-        background: controlBackgroundColor(num.value, currentControl),
-        color: controlColor(num.value, currentControl),
+        background: controlBackgroundColor(num, currentControl),
+        color: controlColor(num),
       };
     });
   }
 }
 
-function controlBackgroundColor(control: number, currentControl: CurrentControl): string {
-  if (control === currentControl.value) {
+function controlBackgroundColor(control: Control, currentControl: CurrentControl): string {
+  if (control.isCompleted) {
+    return controlBackgroundColorSpec.Completed;
+  }
+  else if (control.value === currentControl.value) {
     return controlBackgroundColorSpec.Current;
   }
-  // else if ( the number is completed)
   return controlBackgroundColorSpec.Fixed;
 }
 
-function controlColor(control: number, currentControl: CurrentControl): string {
-  if (currentControl.completed) {
+function controlColor(control: Control): string {
+  if (control.isCompleted) {
     return controlColorSpec.Completed;
   }
   return controlColorSpec.Fixed;

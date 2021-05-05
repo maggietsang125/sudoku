@@ -1,7 +1,7 @@
 export const cellValueColorSpec = {
   Edit: 'blue',
   Fixed: 'black',
-}
+};
 
 export const colBackgroundColorSpec = {
   Current: 'rgba(0, 146, 255, 0.3)',
@@ -9,15 +9,15 @@ export const colBackgroundColorSpec = {
   SameValue: 'rgba(0, 255, 191, 0.1)',
   Fixed: 'white',
   Error: 'rgba(221, 104, 104, 0.582)'
-}
+};
 
 export const controlBackgroundColorSpec = {
   Current: 'rgba(0, 146, 255, 0.3)',
   Fixed: 'white',
-  Completed: 'grey',
-}
+  Completed: 'rgba(128, 128, 128, 0.5)',
+};
 
 export const controlColorSpec = {
   Fixed: 'black',
-  Completed: 'white',
-}
+  Completed: 'rgb(59, 59, 59);',
+};

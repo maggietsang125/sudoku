@@ -1,7 +1,7 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, HostListener, OnInit } from '@angular/core';
 
-import { Cell, Row, Grid, CurrentControl, controlNumber2 } from './util/sudoku-util';
+import { Cell, Row, Grid, CurrentControl, controlNumber2, Control } from './util/sudoku-util';
 import { sampleGrid } from './util/sudoku-samples';
 
 @Component({
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
     isActive: false,
     isSelect: false,
   };
-  currentControl: CurrentControl = { value: 9, completed: false };
+  currentControl: CurrentControl = { value: 9, isCompleted: false };
 
   ControlNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   controlNumber = controlNumber2;
@@ -169,10 +169,11 @@ export class AppComponent implements OnInit {
 
   updateControlNumber(control: number): CurrentControl {
     this.currentControl = {
-      value: control,
+      value: this.controlNumber[control].value,
+      isCompleted: this.controlNumber[control].isCompleted,
     };
 
-    if (this.currentCell.isSelect && this.currentCell.value !== control) {
+    if (this.currentCell.isSelect && this.currentCell.value !== this.controlNumber[control].value) {
       this.editCell(this.currentCell);
       this.updateCurrentCell(this.currentCell);
     }
@@ -189,6 +190,7 @@ export class AppComponent implements OnInit {
     console.log('delete cell');
     this.currentGrid.grid[this.currentCell.row][this.currentCell.col].value = 0;
     this.currentGrid.grid[this.currentCell.row][this.currentCell.col].isError = false;
+    // this.controlNumber = this.checkControlCompletion();
     this.updateCurrentCell(this.currentGrid.grid[this.currentCell.row][this.currentCell.col]);
     return;
   }
@@ -196,19 +198,24 @@ export class AppComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   ControlNumberKeydown(event: KeyboardEvent): void {
     const key = Number(event.key);
+    console.log('keydown: ' + key);
     if (this.ControlNumber.includes(key)) {
       this.updateControlNumber(key);
+      // this.updateControlNumber(key - 1);
     }
   }
 
   exitControlNumber(): CurrentControl {
-    this.currentControl.value = -1;
+    this.currentControl = {
+      value: 0,
+      isCompleted: false,
+    };
     return this.currentControl;
   }
 
   editCell(cell: Cell): void {
     if (!cell.isSelect) { return; }
-    if (this.currentControl.value === -1) { return; }
+    if (this.currentControl.value === 0) { return; }
 
     if (this.currentCell.value === this.currentControl.value) {
       this.removeCurrentCell();
@@ -218,6 +225,8 @@ export class AppComponent implements OnInit {
     this.currentGrid.grid[cell.row][cell.col].isError = this.checkDuplicate(cell.row, cell.col);
 
     console.log('cell edited');
+
+    // this.controlNumber = this.checkControlCompletion();
     return;
   }
 
@@ -245,6 +254,34 @@ export class AppComponent implements OnInit {
 
     this.updateCurrentCell(cell);
     return cell.isError;
+  }
+
+  checkControlCompletion(): Control[] {
+    console.log('inside check control');
+
+    const tempRow = this.currentGrid.grid
+      .map(row => row.map(col => col.value))
+      .reduce((prev, next) => prev.concat(next))
+      .filter(Number)
+      .filter(cell => cell !== undefined || cell !== 0 ? cell : null);
+    console.log('check control: ' + tempRow);
+
+    // const idk = this.controlNumber.map(control => {
+    //   tempRow.filter(cell => cell === control.value).length >= 9
+    //     ? control.isCompleted = true
+    //     : control.isCompleted = false;
+    //   console.log(control.value + ' isCompleted: ' + control.isCompleted);
+    // });
+
+
+    const idk = tempRow.filter(cell => cell === this.controlNumber[0].value).length >= 9
+      ? this.controlNumber[0].isCompleted = true
+      : this.controlNumber[0].isCompleted = false;
+    console.log(this.controlNumber[0].value + ' isCompleted: ' + this.controlNumber[0].isCompleted);
+
+    console.log(idk);
+    console.log(this.controlNumber);
+    return this.controlNumber;
   }
 
 }
